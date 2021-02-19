@@ -90,11 +90,18 @@ public class XMLMapperBuilder extends BaseBuilder {
     this.resource = resource;
   }
 
+  /**
+   * xml标签定义的解析
+   * 将 sql标签相关信息注册到 configuration的mappedStatements（map）
+   * 将绑定的namespace的接口Mapper注册到configuration的mapperRegistry（map）
+   */
   public void parse() {
+	//只加载一次
     if (!configuration.isResourceLoaded(resource)) {
-      configurationElement(parser.evalNode("/mapper"));
+    	//sql标签相关信息注册到 configuration的mappedStatements（map）
+      configurationElement(parser.evalNode("/mapper")); //MapperdStatements
       configuration.addLoadedResource(resource);
-      bindMapperForNamespace();
+      bindMapperForNamespace(); //Mapper
     }
 
     parsePendingResultMaps();
@@ -415,7 +422,11 @@ public class XMLMapperBuilder extends BaseBuilder {
     }
   }
 
+  /**
+   * 从namespace中构建Mapper
+   */
   private void bindMapperForNamespace() {
+	 //xml配置的namespace  （接口）
     String namespace = builderAssistant.getCurrentNamespace();
     if (namespace != null) {
       Class<?> boundType = null;
@@ -429,6 +440,7 @@ public class XMLMapperBuilder extends BaseBuilder {
         // to prevent loading again this resource from the mapper interface
         // look at MapperAnnotationBuilder#loadXmlResource
         configuration.addLoadedResource("namespace:" + namespace);
+        //注册到 mapperRegistry
         configuration.addMapper(boundType);
       }
     }

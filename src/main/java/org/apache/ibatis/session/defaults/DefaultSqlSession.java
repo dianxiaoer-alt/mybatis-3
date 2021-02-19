@@ -285,6 +285,7 @@ public class DefaultSqlSession implements SqlSession {
 
   @Override
   public <T> T getMapper(Class<T> type) {
+	//从配置中的MapperRegister中拿到已经配置注册过得注册中心的mapper（接口）
     return configuration.getMapper(type, this);
   }
 

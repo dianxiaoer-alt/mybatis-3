@@ -25,6 +25,8 @@ import org.apache.ibatis.session.SqlSession;
 
 /**
  * @author Lasse Voss
+ * Mapper代理工厂
+ * 每个Mapper都将有自己的MapperProxyFactory代理工厂
  */
 public class MapperProxyFactory<T> {
 
@@ -45,6 +47,7 @@ public class MapperProxyFactory<T> {
 
   @SuppressWarnings("unchecked")
   protected T newInstance(MapperProxy<T> mapperProxy) {
+	 //动态代理
     return (T) Proxy.newProxyInstance(mapperInterface.getClassLoader(), new Class[] { mapperInterface }, mapperProxy);
   }
 

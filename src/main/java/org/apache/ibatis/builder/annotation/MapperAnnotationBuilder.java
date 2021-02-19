@@ -120,6 +120,7 @@ public class MapperAnnotationBuilder {
       assistant.setCurrentNamespace(type.getName());
       parseCache();
       parseCacheRef();
+      //遍历接口当中所有的方法
       for (Method method : type.getMethods()) {
         if (!canHaveStatement(method)) {
           continue;
@@ -294,6 +295,7 @@ public class MapperAnnotationBuilder {
   }
 
   void parseStatement(Method method) {
+	//接口方法参数类型
     final Class<?> parameterTypeClass = getParameterType(method);
     final LanguageDriver languageDriver = getLanguageDriver(method);
 

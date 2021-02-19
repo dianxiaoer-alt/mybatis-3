@@ -68,6 +68,8 @@ public class MapperRegistry {
         // It's important that the type is added before the parser is run
         // otherwise the binding may automatically be attempted by the
         // mapper parser. If the type is already known, it won't try.
+        //注册完xml中配置的Mapper之后判断有没有注解形式的SQL语句，
+        //有则解析到全局配置的MappedStatement中
         MapperAnnotationBuilder parser = new MapperAnnotationBuilder(config, type);
         parser.parse();
         loadCompleted = true;

@@ -23,7 +23,12 @@ import java.sql.Connection;
  * @author Clinton Begin
  */
 public interface SqlSessionFactory {
-
+  /**
+   * 创建事务
+   * 创建执行器 CachingExecutor（默认是SIMPLE简单的，则将执行器创建为可缓存的执行器）
+   *
+   * @return
+   */
   SqlSession openSession();
 
   SqlSession openSession(boolean autoCommit);
